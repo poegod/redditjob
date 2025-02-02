@@ -3,6 +3,23 @@ import requests
 import json
 import time
 from datetime import datetime, timezone
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import threading
+
+class HealthCheck(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running")
+
+def run_health_server():
+    server = HTTPServer(('0.0.0.0', 8080), HealthCheck)
+    server.serve_forever()
+
+# In your main():
+    # Start health check server in a separate thread
+    health_thread = threading.Thread(target=run_health_server, daemon=True)
+    health_thread.start()
 
 # Configuration
 REDDIT_CLIENT_ID = 'CmOllAmVOoOxGaepHjS19w'
