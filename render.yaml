@@ -3,7 +3,7 @@ services:
     name: reddit-discord-bot
     env: docker
     buildCommand: docker build -t reddit-discord-bot .
-    startCommand: docker run reddit-discord-bot
+    startCommand: docker run -p 10000:10000 reddit-discord-bot
     envVars:
       - key: REDDIT_CLIENT_ID
         sync: false
@@ -11,3 +11,5 @@ services:
         sync: false
       - key: DISCORD_WEBHOOK_URL
         sync: false
+      - key: PORT
+        value: 10000
