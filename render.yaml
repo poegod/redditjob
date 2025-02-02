@@ -1,0 +1,13 @@
+services:
+  - type: worker
+    name: reddit-discord-bot
+    env: docker
+    buildCommand: docker build -t reddit-discord-bot .
+    startCommand: docker run reddit-discord-bot
+    envVars:
+      - key: REDDIT_CLIENT_ID
+        sync: false
+      - key: REDDIT_CLIENT_SECRET
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
